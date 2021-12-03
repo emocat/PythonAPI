@@ -311,10 +311,15 @@ class Connection:
         mod_status = self.get_module_status()
 
         # If any module is not enabled, Control may still send a message even though Apollo is not ready
-        if not all(mod_status[mod] for mod in modules):
-            self.disable_apollo()
+        # if not all(mod_status[mod] for mod in modules):
+        #     self.disable_apollo()
+        
+        for mod in modules:
+            if not mod_status[mod]:
+                self.enable_module(mod)
 
-        self.enable_apollo(dest_x, dest_z, modules, coord_type=coord_type)
+        # self.enable_apollo(dest_x, dest_z, modules, coord_type=coord_type)
+        self.set_destination(dest_x, dest_z, coord_type=coord_type)
         self.ego.is_control_received = False
 
         def on_control_received(agent, kind, context):
