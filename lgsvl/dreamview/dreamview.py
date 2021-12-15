@@ -301,8 +301,10 @@ class Connection:
                 log.warning(
                     "Warning: Apollo module {} is not running!!!".format(module)
                 )
+                log.warning("Albanis: Enable module by myself :)")
+                self.enable_module(module)
 
-    def setup_apollo(self, dest_x, dest_z, modules, default_timeout=60.0, coord_type=CoordType.Unity):
+    def setup_apollo(self, dest_x, dest_z, modules, default_timeout=300.0, coord_type=CoordType.Unity):
         """
         Starts a list of Apollo modules and sets the destination. Will wait for Control module to send a message before returning.
         Control sending a message indicates that all modules are working and Apollo is ready to continue.
